@@ -1,35 +1,24 @@
 package application;
 
-import db.DB;
+import model.dao.DaoFactory;
+import model.dao.SellerDao;
+import model.entity.Seller;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Program {
 
-    public static void main(String[] args) {
+   public static void main(String[] args) {
 
-        Connection conn = null;
-        Statement st = null;
-        ResultSet rs = null;
+       SellerDao sellerDao = DaoFactory.createSellerDao();
 
-        try {
-            conn = DB.getConnection();
-            st = conn.createStatement();
-            rs = st.executeQuery("SELECT id, name FROM seller");
-
-            while(rs.next()) {
-                System.out.println(rs.getInt("id") + ", " + rs.getString("name"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            DB.closeResultSet(rs);
-            DB.closeStatement(st);
-            DB.closeConnection();
-        }
+       System.out.println("=== Find all ===");
+       List<Seller> list = new ArrayList<>();
+       list = sellerDao.findAll();
+       for (Seller seller : list) {
+           System.out.println(seller);
+       }
 
     }
 }
