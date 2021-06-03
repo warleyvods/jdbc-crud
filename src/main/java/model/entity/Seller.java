@@ -17,6 +17,11 @@ public class Seller {
         this.lastname = lastname;
     }
 
+    public Seller(String name, String lastname) {
+        this.name = name;
+        this.lastname = lastname;
+    }
+
     public Long getId() {
         return id;
     }
