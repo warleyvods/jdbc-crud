@@ -109,6 +109,27 @@ public class SellerDaoJDBC implements SellerDao {
         }
     }
 
+    @Override
+    public void update(Seller obj) {
+        PreparedStatement st = null;
+        try {
+            st = conn.prepareStatement("UPDATE seller SET name = ?, lastname = ? WHERE id = ? ");
+            st.setString(1, obj.getName());
+            st.setString(2, obj.getLastname());
+            st.setLong(3, obj.getId());
+
+            int rowsAffected = st.executeUpdate();
+
+            if (rowsAffected > 0) {
+                System.out.println("Seller updated with ID: " + obj.getId());
+            }
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+        }
+    }
+
     private Seller instantiateSeller(ResultSet rs) throws SQLException {
         return new Seller(rs.getLong("id"),
                           rs.getString("name"),

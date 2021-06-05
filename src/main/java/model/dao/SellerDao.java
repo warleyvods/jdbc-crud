@@ -10,4 +10,5 @@ public interface SellerDao {
     void insert(Seller obj);
     void deleteById(Long id);
     Seller findById(Long id);
+    void update(Seller obj);
 }

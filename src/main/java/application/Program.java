@@ -37,6 +37,27 @@ public class Program {
        foundSeller = sellerDao.findById(idForSearch);
        System.out.println(foundSeller);
 
+       System.out.println("=== Update seller by id ===");
+       System.out.println("Insert seller ID to update: ");
+       Long sellerToUpdateId = scanner.nextLong();
+       Seller sellerToUpdate = sellerDao.findById(sellerToUpdateId);
+       System.out.println(sellerToUpdate);
+       System.out.println("What you wanna update? \n 1 -> Name \n 2 -> Last name");
+       int toUpdate = scanner.nextInt();
+       if (toUpdate == 1) {
+           System.out.println("Insert new name: ");
+           String newName = scanner.next();
+           sellerToUpdate.setName(newName);
+       } else if (toUpdate == 2) {
+           System.out.println("Insert new last name: ");
+           String newLastName = scanner.next();
+           sellerToUpdate.setLastname(newLastName);
+       } else {
+           System.out.println("Invalid entry");
+       }
+       sellerDao.update(sellerToUpdate);
+       System.out.println(sellerToUpdate);
+
        System.out.println("=== Delete by id ===");
        System.out.println("Id to delete: ");
        Long id = scanner.nextLong();
