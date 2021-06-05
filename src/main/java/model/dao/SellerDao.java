@@ -9,4 +9,5 @@ public interface SellerDao {
     List<Seller> findAll();
     void insert(Seller obj);
     void deleteById(Long id);
+    Seller findById(Long id);
 }

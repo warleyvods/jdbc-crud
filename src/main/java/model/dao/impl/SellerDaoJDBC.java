@@ -87,6 +87,28 @@ public class SellerDaoJDBC implements SellerDao {
         }
     }
 
+    @Override
+    public Seller findById(Long id) {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+
+        try {
+            st = conn.prepareStatement("SELECT * FROM seller WHERE seller.id = ? ");
+            st.setLong(1, id);
+            rs = st.executeQuery();
+
+            if (rs.next()) {
+                return instantiateSeller(rs);
+            }
+            return null;
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
+    }
+
     private Seller instantiateSeller(ResultSet rs) throws SQLException {
         return new Seller(rs.getLong("id"),
                           rs.getString("name"),

@@ -30,6 +30,13 @@ public class Program {
            System.out.println(seller);
        }
 
+       System.out.println("=== Find by id ===");
+       Seller foundSeller = new Seller();
+       System.out.println("Insert id for seller search:");
+       Long idForSearch = scanner.nextLong();
+       foundSeller = sellerDao.findById(idForSearch);
+       System.out.println(foundSeller);
+
        System.out.println("=== Delete by id ===");
        System.out.println("Id to delete: ");
        Long id = scanner.nextLong();
