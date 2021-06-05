@@ -7,19 +7,22 @@ public class Seller {
     private Long id;
     private String name;
     private String lastname;
+    private String email;
+    private Double salary;
+    private Department department;
 
     public Seller() {
     }
 
-    public Seller(Long id, String name, String lastname) {
+    public Seller(Long id, String name,
+                  String lastname, String email,
+                  Double salary, Department department) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
-    }
-
-    public Seller(String name, String lastname) {
-        this.name = name;
-        this.lastname = lastname;
+        this.email = email;
+        this.salary = salary;
+        this.department = department;
     }
 
     public Long getId() {
@@ -46,6 +49,30 @@ public class Seller {
         this.lastname = lastname;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(Double salary) {
+        this.salary = salary;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -61,6 +88,10 @@ public class Seller {
 
     @Override
     public String toString() {
-        return "Seller name: " + name + '\'' + ", last name: " + lastname +". Id: " + id + '\'' +'}';
+        return "Seller: " +
+                "\n Id -> " + id +
+                "\n Name -> " + name +
+                "\n Last name -> " + lastname +
+                "\n Department -> " + department;
     }
 }
