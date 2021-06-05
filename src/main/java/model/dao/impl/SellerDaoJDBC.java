@@ -27,7 +27,8 @@ public class SellerDaoJDBC implements SellerDao {
         ResultSet rs = null;
 
         try {
-            st = conn.prepareStatement("SELECT id, name, lastname FROM seller");
+            st = conn.prepareStatement("SELECT id, name, lastname " +
+                    "FROM seller");
             rs = st.executeQuery();
 
             List<Seller> list = new ArrayList<>();
