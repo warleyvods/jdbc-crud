@@ -30,10 +30,10 @@ public class SellerDaoJDBC implements SellerDao {
         ResultSet rs = null;
 
         try {
-            st = conn.prepareStatement("SELECT seller.*, department.name as DepName " +
+            st = conn.prepareStatement("SELECT seller.*, department.name " +
                     "FROM seller INNER JOIN department " +
                     "ON seller.department_id = department.id " +
-                    "ORDER BY name");
+                    "ORDER BY seller.id");
             rs = st.executeQuery();
 
             List<Seller> list = new ArrayList<>();

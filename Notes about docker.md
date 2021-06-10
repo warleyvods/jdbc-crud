@@ -1,24 +1,30 @@
 # Database instruction set: 🗃️
 
-**To run Mysql with docker:**
-docker run --jdbc_study -e MYSQL_ROOT_PASSWORD=123456 -d
+**Creating docker container with mysql:**
+docker run --name jdbc -e MYSQL_ROOT_PASSWORD=123456 -d -p 3306:3306 mysql:latest
 
 **To connect to a terminal(bash) inside container:**
-sudo docker exec -it jdbc_study bash
+sudo docker exec -it jdbc_crud bash <- Enter container bash
+mysql -u root -p <- Logging to mysql
 
 **MySql commands:**
-DESC *table name*; <- Describes the data types of the refered table.
+DESC *table name*; <- Describes the data types of the referred table.
 
-## Querys for this exercise:
+## Queries for this exercise:
 
-#### Creating tables:
+#### Creating tables and database:
 
-CREATE TABLE IF NOT EXISTS department (
-  id serial PRIMARY KEY,
+```SQL
+CREATE DATABASE jdbc;
+```
+```SQL
+  CREATE TABLE IF NOT EXISTS department (
+  id int,
   name VARCHAR(80),
   PRIMARY KEY(id)
   );
-
+```
+```SQL
 CREATE TABLE IF NOT EXISTS seller (
   id serial PRIMARY KEY,
   name VARCHAR(50),
@@ -29,9 +35,9 @@ CREATE TABLE IF NOT EXISTS seller (
   FOREIGN KEY(department_id) REFERENCES department(id)
   ON DELETE CASCADE ON UPDATE CASCADE
 );
-
+```
 #### Inserting data:
-
+```SQL
 INSERT INTO department (id, name) VALUES (1, 'Eletronics');
 INSERT INTO department (id, name) VALUES (2, 'Computers');
 INSERT INTO department (id, name) VALUES (3, 'Photography');
@@ -45,4 +51,4 @@ INSERT INTO seller (id, name, lastname, email, salary, department_id) VALUES (5,
 INSERT INTO seller (id, name, lastname, email, salary, department_id) VALUES (6, 'Ada', 'Love', 'ada@me.com', 7500.00, 3);
 INSERT INTO seller (id, name, lastname, email, salary, department_id) VALUES (7, 'Neil', 'Legsweak', 'neil@me.com', 1990.00, 4);
 INSERT INTO seller (id, name, lastname, email, salary, department_id) VALUES (8, 'Charlotte', 'Bad', 'charlotte@me.com', 6200.00, 4);
-
+```
