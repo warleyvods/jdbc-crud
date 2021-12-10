@@ -27,8 +27,7 @@ public class SellerDaoJDBC implements SellerDao {
         ResultSet rs = null;
 
         try {
-            st = conn.prepareStatement("SELECT seller.*" +
-                    "FROM seller");
+            st = conn.prepareStatement("SELECT * FROM seller");
 
             rs = st.executeQuery();
 
@@ -51,10 +50,7 @@ public class SellerDaoJDBC implements SellerDao {
     public void insert(Seller obj) {
         PreparedStatement st = null;
         try {
-            st = conn.prepareStatement("INSERT INTO seller " +
-                            "(name, lastname, email, salary) " +
-                            "VALUES (?, ?, ?, ?)",
-                    Statement.RETURN_GENERATED_KEYS);
+            st = conn.prepareStatement("INSERT INTO seller (name, lastname, email, salary) VALUES (?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
             st.setString(1, obj.getName());
             st.setString(2, obj.getLastname());
             st.setString(3, obj.getEmail());
@@ -99,9 +95,7 @@ public class SellerDaoJDBC implements SellerDao {
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
-            st = conn.prepareStatement("SELECT seller.* " +
-                    "FROM seller " +
-                    "WHERE seller.id = ? ");
+            st = conn.prepareStatement("SELECT * FROM seller WHERE seller.id = ? ");
             st.setLong(1, id);
             rs = st.executeQuery();
 
@@ -121,10 +115,7 @@ public class SellerDaoJDBC implements SellerDao {
     public void update(Seller obj) {
         PreparedStatement st = null;
         try {
-            st = conn.prepareStatement("UPDATE seller " +
-                    "SET name = ?, lastname = ?," +
-                    "email = ?, salary = ?, department_id = ? " +
-                    " WHERE id = ? ");
+            st = conn.prepareStatement("UPDATE seller SET name = ?, lastname = ?, email = ?, salary = ? WHERE id = ? ");
             st.setString(1, obj.getName());
             st.setString(2, obj.getLastname());
             st.setString(3, obj.getEmail());
