@@ -19,15 +19,14 @@ public class Program {
        Scanner scanner = new Scanner(System.in);
 
 
-       /*System.out.println("=== Save ===");
-       Long idForSearch = 1L;
-       sellerDao.insert(new Seller(1L, "Warley", "Vinicius", "warleyvods@gmail.com", 6400D));*/
+       System.out.println("=== Save ===");
+       sellerDao.insert(new Seller(1L, "Warley", "Vinicius", "warleyvods@gmail.com", 6400D));
 
 
-       /*System.out.println("=== Find by id ===");
+       System.out.println("=== Find by id ===");
        Long idForSearch = 1L;
        Seller foundSeller  = sellerDao.findById(idForSearch);
-       System.out.println(foundSeller);*/
+       System.out.println(foundSeller);
 
 
        System.out.println("=== Find all ===");
@@ -36,8 +35,8 @@ public class Program {
            System.out.println(seller);
        }
 
-       /*System.out.println("=== Delete by id ===");
-       sellerDao.deleteById(1L);*/
+       System.out.println("=== Delete by id ===");
+       sellerDao.deleteById(10L);
 
     }
 }
