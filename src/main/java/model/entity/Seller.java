@@ -16,13 +16,12 @@ public class Seller {
 
     public Seller(Long id, String name,
                   String lastname, String email,
-                  Double salary, Department department) {
+                  Double salary) {
         this.id = id;
         this.name = name;
         this.lastname = lastname;
         this.email = email;
         this.salary = salary;
-        this.department = department;
     }
 
     public Long getId() {
@@ -91,7 +90,6 @@ public class Seller {
         return "Seller: " +
                 "\n Id -> " + id +
                 "\n Name -> " + name +
-                "\n Last name -> " + lastname +
-                "\n Department -> " + department;
+                "\n Last name -> " + lastname;
     }
 }

@@ -30,24 +30,15 @@ public class SellerDaoJDBC implements SellerDao {
         ResultSet rs = null;
 
         try {
-            st = conn.prepareStatement("SELECT seller.*, department.name " +
-                    "FROM seller INNER JOIN department " +
-                    "ON seller.department_id = department.id " +
-                    "ORDER BY seller.id");
+            st = conn.prepareStatement("SELECT seller.*" +
+                    "FROM seller");
+
             rs = st.executeQuery();
 
             List<Seller> list = new ArrayList<>();
-            Map<Long, Department> map = new HashMap<>();
-
             while (rs.next()) {
-                Department dep = map.get(rs.getLong("department_id"));
 
-                if (dep == null) {
-                    dep = instantiateDepartment(rs);
-                    map.put(rs.getLong("department_id"), dep);
-                }
-
-                Seller obj = instantiateSeller(rs, dep);
+                Seller obj = instantiateSeller(rs);
                 list.add(obj);
             }
             return list;
@@ -64,20 +55,19 @@ public class SellerDaoJDBC implements SellerDao {
         PreparedStatement st = null;
         try {
             st = conn.prepareStatement("INSERT INTO seller " +
-                            "(name, lastname, email, salary, department_id) " +
-                            "VALUES (?, ?, ?, ?, ?)",
-                            Statement.RETURN_GENERATED_KEYS);
+                            "(name, lastname, email, salary) " +
+                            "VALUES (?, ?, ?, ?)",
+                    Statement.RETURN_GENERATED_KEYS);
             st.setString(1, obj.getName());
             st.setString(2, obj.getLastname());
             st.setString(3, obj.getEmail());
             st.setDouble(4, obj.getSalary());
-            st.setLong(5, obj.getDepartment().getId());
 
             int rowsAffected = st.executeUpdate();
 
-            if(rowsAffected > 0) {
+            if (rowsAffected > 0) {
                 ResultSet rs = st.getGeneratedKeys();
-                if(rs.next()) {
+                if (rs.next()) {
                     Long id = rs.getLong(1);
                     obj.setId(id);
                 }
@@ -112,16 +102,14 @@ public class SellerDaoJDBC implements SellerDao {
         PreparedStatement st = null;
         ResultSet rs = null;
         try {
-            st = conn.prepareStatement("SELECT seller.*, department.name " +
-                    "FROM seller INNER JOIN department " +
-                    "ON seller.department_id = department.id " +
+            st = conn.prepareStatement("SELECT seller.* " +
+                    "FROM seller " +
                     "WHERE seller.id = ? ");
             st.setLong(1, id);
             rs = st.executeQuery();
 
             if (rs.next()) {
-                Department dep = instantiateDepartment(rs);
-                return instantiateSeller(rs, dep);
+                return instantiateSeller(rs);
             }
             return null;
         } catch (SQLException e) {
@@ -158,13 +146,13 @@ public class SellerDaoJDBC implements SellerDao {
         }
     }
 
-    private Seller instantiateSeller(ResultSet rs, Department dep) throws SQLException {
+    private Seller instantiateSeller(ResultSet rs) throws SQLException {
         return new Seller(rs.getLong("id"),
-                          rs.getString("name"),
-                          rs.getString("lastname"),
-                          rs.getString("email"),
-                          rs.getDouble("salary"),
-                          dep);
+                rs.getString("name"),
+                rs.getString("lastname"),
+                rs.getString("email"),
+                rs.getDouble("salary")
+        );
     }
 
     private Department instantiateDepartment(ResultSet rs) throws SQLException {

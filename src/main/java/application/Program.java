@@ -18,17 +18,26 @@ public class Program {
        DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
        Scanner scanner = new Scanner(System.in);
 
-       System.out.println("=== Find by id ===");
-       Seller foundSeller = new Seller();
+
+       /*System.out.println("=== Save ===");
        Long idForSearch = 1L;
-       foundSeller = sellerDao.findById(idForSearch);
-       System.out.println(foundSeller);
+       sellerDao.insert(new Seller(1L, "Warley", "Vinicius", "warleyvods@gmail.com", 6400D));*/
+
+
+       /*System.out.println("=== Find by id ===");
+       Long idForSearch = 1L;
+       Seller foundSeller  = sellerDao.findById(idForSearch);
+       System.out.println(foundSeller);*/
+
 
        System.out.println("=== Find all ===");
-       List<Seller> list = new ArrayList<>();
-       list = sellerDao.findAll();
+       List<Seller> list = sellerDao.findAll();
        for (Seller seller : list) {
            System.out.println(seller);
        }
+
+       /*System.out.println("=== Delete by id ===");
+       sellerDao.deleteById(1L);*/
+
     }
 }
