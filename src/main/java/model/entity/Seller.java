@@ -80,6 +80,7 @@ public class Seller {
         return "Seller: " +
                 "\n Id: " + id +
                 "\n Name: " + name +
-                "\n Sobrenome: " + lastname;
+                "\n Sobrenome: " + lastname +
+                "\n Salario: " + salary;
     }
 }
