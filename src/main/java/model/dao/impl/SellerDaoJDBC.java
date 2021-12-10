@@ -3,7 +3,6 @@ package model.dao.impl;
 import db.DB;
 import db.DbException;
 import model.dao.SellerDao;
-import model.entity.Department;
 import model.entity.Seller;
 
 import java.sql.Connection;
@@ -12,9 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 public class SellerDaoJDBC implements SellerDao {
 
@@ -132,8 +129,7 @@ public class SellerDaoJDBC implements SellerDao {
             st.setString(2, obj.getLastname());
             st.setString(3, obj.getEmail());
             st.setDouble(4, obj.getSalary());
-            st.setLong(5, obj.getDepartment().getId());
-            st.setLong(6, obj.getId());
+            st.setLong(5, obj.getId());
             int rowsAffected = st.executeUpdate();
 
             if (rowsAffected > 0) {
@@ -153,11 +149,5 @@ public class SellerDaoJDBC implements SellerDao {
                 rs.getString("email"),
                 rs.getDouble("salary")
         );
-    }
-
-    private Department instantiateDepartment(ResultSet rs) throws SQLException {
-        return new Department(
-                rs.getLong("id"),
-                rs.getString("name"));
     }
 }
